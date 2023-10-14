@@ -423,6 +423,28 @@ class ExpressionsSpec extends AnyFunSpec {
           Str("=def")
         )))
       }
+
+      it("parses f-string with double quote in it") {
+        Expressions.parse("f\"this \\\" is a quote\"") should be(InterpolatedStr(ArrayBuffer(
+          Str("this \" is a quote")
+        )))
+      }
+
+      it("parses f-string with string in it") {
+        Expressions.parse("f\"abc{\"def\"}ghi\"") should be(InterpolatedStr(ArrayBuffer(
+          Str("abc"),
+          Str("def"),
+          Str("ghi"),
+        )))
+      }
+
+      it("parses f-string with f-string in it") {
+        Expressions.parse("f\"abc{f\"def\"}ghi\"") should be(InterpolatedStr(ArrayBuffer(
+          Str("abc"),
+          InterpolatedStr(ArrayBuffer(Str("def"))),
+          Str("ghi"),
+        )))
+      }
     }
   }
 }
