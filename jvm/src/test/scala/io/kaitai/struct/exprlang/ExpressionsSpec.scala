@@ -261,6 +261,10 @@ class ExpressionsSpec extends AnyFunSpec {
       Expressions.parse("\"abc\\u21bbdef\"") should be (Str("abc\u21bbdef"))
     }
 
+    it("parses double-quoted string with double quote") {
+      Expressions.parse("\"this \\\" is a quote\"") should be(Str("this \" is a quote"))
+    }
+
     // Casts
     it("parses 123.as<u4>") {
       Expressions.parse("123.as<u4>") should be (
