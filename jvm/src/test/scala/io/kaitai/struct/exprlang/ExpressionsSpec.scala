@@ -388,5 +388,41 @@ class ExpressionsSpec extends AnyFunSpec {
     it("parses foo.bar") {
       Expressions.parse("foo.bar") should be (Attribute(Name(identifier("foo")),identifier("bar")))
     }
+
+    describe("f-strings") {
+      it("parses f-string with just a string") {
+        Expressions.parse("f\"abc\"") should be(InterpolatedStr(ArrayBuffer(
+          Str("abc")
+        )))
+      }
+
+      it("parses f-string with just one expression") {
+        Expressions.parse("f\"{123}\"") should be(InterpolatedStr(ArrayBuffer(
+          IntNum(123)
+        )))
+      }
+
+      it("parses f-string with string + expression") {
+        Expressions.parse("f\"foo={123}\"") should be(InterpolatedStr(ArrayBuffer(
+          Str("foo="),
+          IntNum(123)
+        )))
+      }
+
+      it("parses f-string with expression + string") {
+        Expressions.parse("f\"{123}=abc\"") should be(InterpolatedStr(ArrayBuffer(
+          IntNum(123),
+          Str("=abc")
+        )))
+      }
+
+      it("parses f-string with str + expression + str") {
+        Expressions.parse("f\"abc={123}=def\"") should be(InterpolatedStr(ArrayBuffer(
+          Str("abc="),
+          IntNum(123),
+          Str("=def")
+        )))
+      }
+    }
   }
 }
