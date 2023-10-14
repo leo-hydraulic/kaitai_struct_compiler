@@ -9,7 +9,7 @@ trait CommonLiterals {
   def doFloatLiteral(n: Any): String = n.toString
 
   /**
-   * Generates string literal with double quotes framing it.
+   * Generates string literal enclosed in double quotes.
    * @param s string to put in as literal
    * @return string literal
    */
@@ -17,7 +17,7 @@ trait CommonLiterals {
     "\"" + doStringLiteralBody(s) + "\""
 
   /**
-   * Generates body of string literal for a given string, without framing quotes.
+   * Generates body of string literal for a given string, without enclosing quotes.
    * @param s string to put in as literal
    * @return body of a string literal
    */

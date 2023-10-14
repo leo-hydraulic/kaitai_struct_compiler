@@ -218,7 +218,7 @@ abstract class BaseTranslator(val provider: TypeProvider)
       case _: StrType =>
         translate(value)
       case otherType =>
-        throw new UnsupportedOperationException(s"unable to convert $otherType to string in format string")
+        throw new UnsupportedOperationException(s"unable to convert $otherType to string in format string (only integers and strings are supported)")
     }
   }
 }

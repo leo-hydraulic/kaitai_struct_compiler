@@ -472,7 +472,6 @@ class GoTranslator(out: StringLanguageOutputWriter, provider: TypeProvider, impo
   }
 
   def trInterpolatedStringLiteral(exprs: Seq[Ast.expr]): TranslatorResult = {
-
     exprs match {
       case Seq(Ast.expr.Str(s)) =>
         // exactly one string literal, no need for printf at all
