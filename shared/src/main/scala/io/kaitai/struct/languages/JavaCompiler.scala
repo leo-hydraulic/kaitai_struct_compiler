@@ -751,7 +751,17 @@ class JavaCompiler(typeProvider: ClassTypeProvider, config: RuntimeConfig)
   }
 
   override def switchRequiresIfs(onType: DataType): Boolean = onType match {
-    case _: IntType | _: EnumType | _: StrType => false
+    case _: EnumType | _: StrType => false    
+
+    // Only integer types that map to "byte", "short" or "int" can be used in switch statements.
+    case Int1Type(false) => false
+    case IntMultiType(false, Width2, _) => false    
+
+    case Int1Type(true) => false
+    case IntMultiType(true, Width2, _) => false
+    case IntMultiType(true, Width4, _) => false
+    
+    case CalcIntType => false
     case _ => true
   }
 
